@@ -1,0 +1,122 @@
+/******************************************
+/* CSS
+/*******************************************/
+
+/* Box Model Hack */
+*{
+  box-sizing: border-box;
+}
+
+/******************************************
+/* LAYOUT
+/*******************************************/
+img{
+  display: inline;
+}
+
+header{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 30px 80px;
+}
+
+header *{
+  width: auto;
+}
+header > h1{
+  width: 80%;
+}
+
+main{
+  display: flex;
+  margin: 30px 80px;
+}
+
+.active-game{
+  flex-basis: 75%;
+  margin-right: 30px;
+}
+
+aside{
+  flex-basis: 25%;
+}
+.game-functions{
+  display: flex;
+  justify-content: space-between;
+}
+.player-input{
+  flex-basis: 75%;
+}
+
+.instructions {
+  display: flex;
+  align-items: center;
+}
+.stats-tracking{
+  flex-basis: auto;
+  display:flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 10px;
+  align-self: flex-start;
+}
+
+ul{
+  list-style-type: none;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+}
+
+/******************************************
+/* ADDITIONAL STYLES
+/*******************************************/
+
+body {
+  background-color: lightyellow;
+}
+
+h1 {
+  color: blue;
+}
+
+header, .active-game, aside {
+  background-color: rgba(255, 255, 255, 0.5);
+  border-radius: 10px;
+  padding: 10px 40px;
+}
+
+.stats-tracking{
+  border: 2px solid blue;
+  border-radius: 10px;
+}
+.stats-tracking span{
+  font-size: large;
+  font-weight: bold;
+}
+
+.lives {
+  color: red;
+}
+aside {
+  text-align: center;
+}
+
+.card {
+  padding: 5px;
+  text-align: center;
+  border: 1px solid black;
+  border-radius: 10px;
+  max-width: 80px;
+  margin: 10px;
+  img{
+    width: 60px;
+  }
+  h3{
+    font-size: .8em;
+    margin: 0 0 5px 0; 
+    font-weight: 100;
+  }
+}

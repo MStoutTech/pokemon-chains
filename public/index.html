@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+    	<meta charset="utf-8">
+    	<meta name="description" content="This is where your description goes">
+    	<meta name="keywords" content="one, two, three">
+
+		<title>Pokemon chains game</title>
+
+		<!-- external CSS link -->
+		<link rel="stylesheet" href="css/normalize.css">
+		<link rel="stylesheet" href="css/style.css">
+	</head>
+	
+	<body>
+
+		<header>
+			<h1>Pokemon Chains</h1>
+			<h4>My top score</h4>
+			<span class="top-score">0</span>
+		</header>
+		
+		<main>
+			<section class="active-game">
+				<section class="game-functions">
+					<section class="player-input">
+						<div class="instructions">
+							<h2>Enter the name of a pokemon starting with the last letter of this pokemon:</h2>
+							<div class="card">
+								<img id="chain-head-img" src="" alt="">
+								<h3 id="chain-head-name">Name</h3>
+							</div>
+						</div>
+						
+						<input type="text" name="" value="">
+						<button type="button" name="button">Chain Pokemon</button>
+						<h4 class="error-message"></h4>
+					</section>
+					<section class="stats-tracking">
+						<p>You have chained </p>
+						<span class="active-chain">1</span> 
+						<p>pokemon </p>
+						<div class="lives">
+							<span id="life-1">❤</span>
+							<span id="life-2">❤</span>
+							<span id="life-3">❤</span>
+						</div>
+					</section>
+				</section>
+				<section class="chain-display">
+					<ul>
+						<li>
+							<div class="card">
+								<img id="first-card-img" src="" alt="">
+								<h3 id="first-card-name">Name</h3>
+							</div>
+						</li>
+					</ul>
+				</section>
+			</section>
+			<aside>
+				<h3>Leaderboard</h3>
+				<table>
+					<thead>
+						<tr>
+							<th scope="col">#</th>
+							<th scope="col">Name</th>
+							<th scope="col">Country</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>20</td>
+							<td>Doug</td>
+							<td> 🇺🇸 </td>
+						</tr>
+						<tr>
+							<td>19</td>
+							<td>Larissa</td>
+							<td>🇰🇷</td>
+						</tr>
+						<tr>
+							<td>19</td>
+							<td>Rolph</td>
+							<td>🇰🇷</td>
+						</tr>
+					</tbody>
+				</table>
+			</aside>
+		</main>
+		<script type="text/javascript" src="js/main.js"></script>
+	</body>
+</html>
