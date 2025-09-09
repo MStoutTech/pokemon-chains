@@ -1,4 +1,5 @@
 
+document.querySelector('input').value = '';
 
 let pokemonGuess = Math.floor(Math.random()*1025);
 let pokemonName = "";
@@ -6,12 +7,17 @@ let chainCount = 1;
 let pokemonChain = [];
 let topScore = 0;
 let lives = 3;
+let leaderboardData = [];
 
+
+//check for stored top score
 if (localStorage.getItem("topScore")){
   topScore = localStorage.getItem("topScore");
   document.querySelector(".top-score").innerText = topScore;
 }
 
+
+//Fetch initial random pokemon from pokemon api
 let url = 'https://pokeapi.co/api/v2/pokemon/'+ pokemonGuess +'/';
 
   fetch(url)
@@ -30,18 +36,68 @@ let url = 'https://pokeapi.co/api/v2/pokemon/'+ pokemonGuess +'/';
           console.log(`error ${err}`)
       });
 
+//fetch leaderboard data from local storage or server
+if(localStorage.getItem("leaderboard")){    
+  leaderboardData = JSON.parse(localStorage.getItem("leaderboard"));
+  displayLeaderboard(leaderboardData);
+}else {
+  fetch('/api/leaderboard')
+      .then(res => res.json())
+      .then(data => {
+        console.log(data)
+        leaderboardData = data;
+        localStorage.setItem("leaderboard", JSON.stringify(data));
+        displayLeaderboard(data);
+      })
+      .catch(err => {
+          console.log(`Server not available, using default data: ${err}`);
+      
+      // Default leaderboard data for client-side only
+      leaderboardData = [
+        {score: 3, name: "name", country: "country"}, 
+        {score: 2, name: "name", country: "country"}, 
+        {score: 1, name: "name", country: "country"}
+      ];
+      
+      // Save defaults to localStorage
+      localStorage.setItem("leaderboard", JSON.stringify(leaderboardData));
+      displayLeaderboard(leaderboardData);
+      });
+    }
+
+function displayLeaderboard(data){
+    // Clear current table
+  document.querySelector('tbody').innerHTML = '';
+  
+  let limit = Math.min(20, data.length);
+  for(let i = 0; i < limit; i++) {
+    let tr = document.createElement('tr');
+    let td1 = document.createElement('td');
+    let td2 = document.createElement('td');
+    let td3 = document.createElement('td');
+    td1.innerText = data[i].score;
+    td2.innerText = data[i].name;
+    td3.innerText = data[i].country;
+    tr.appendChild(td1);
+    tr.appendChild(td2);
+    tr.appendChild(td3);
+    document.querySelector('tbody').appendChild(tr);
+  }
+}
+
 function loseHeart(){
   lives -= 1;
   if (lives === 2){
-    document.querySelector('#life-1').innerText = "♡"
+    document.querySelector('#life-1').innerText = "♡ "
   } else if (lives === 1){
-    document.querySelector('#life-2').innerText = "♡"
+    document.querySelector('#life-2').innerText = "♡ "
   } else {
-    document.querySelector('#life-3').innerText = "♡"
+    document.querySelector('#life-3').innerText = "♡ "
     document.querySelector('.error-message').innerText += "- GAME OVER"
     document.querySelector('.active-game-input').classList.add('hidden')
     document.querySelector('.active-game-button').classList.add('hidden')
     document.querySelector('#new-game').classList.toggle('hidden')
+    checkAndUpdateLeaderboard();
   }
 }
 
@@ -99,6 +155,9 @@ function addToChain(){
         li.appendChild(div);
         document.querySelector("ul").appendChild(li);
 
+        //clear the input
+        document.querySelector('input').value = '';
+
       })
       .catch(err => {
           console.log(`error ${err}`)
@@ -107,4 +166,36 @@ function addToChain(){
       });
   }
 }
+}
+
+function checkAndUpdateLeaderboard() {
+  // Check if current score qualifies for top 20
+  if (leaderboardData.length < 20 || chainCount > leaderboardData[leaderboardData.length - 1].score) {
+    
+    let playerName = prompt("Congratulations! You made the leaderboard! Enter your name:");
+    let country = prompt("Enter your country:");
+    
+    if (playerName && country) {
+      // Add new player
+      leaderboardData.push({
+        name: playerName,
+        score: chainCount,
+        country: country
+      });
+      
+      // Sort by score (highest first)
+      leaderboardData.sort((a, b) => b.score - a.score);
+      
+      // Keep only top 20
+      leaderboardData = leaderboardData.slice(0, 20);
+      
+      // Save to localStorage
+      localStorage.setItem("leaderboard", JSON.stringify(leaderboardData));
+      
+      // Update display
+      displayLeaderboard(leaderboardData);
+      
+      alert("Your score has been added to the leaderboard!");
+    }
+  }
 }
