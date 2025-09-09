@@ -15,7 +15,7 @@
 	<body>
 
 		<header>
-			<h1>Pokemon Chains</h1>
+			<img src="img/pokemon-chains-logo.png" alt="Pokemon Chains">
 			<h4>My top score</h4>
 			<span class="top-score">0</span>
 		</header>
@@ -32,8 +32,9 @@
 							</div>
 						</div>
 						
-						<input type="text" name="" value="">
-						<button type="button" name="button">Chain Pokemon</button>
+						<input class="active-game-input" type="text" name="" value="">
+						<button id="chain-button" class="active-game-button" type="button" name="button">Chain Pokemon</button>
+						<button id="new-game" class="hidden" type="button" name="button" onClick="window.location.reload();">New Game</button>
 						<h4 class="error-message"></h4>
 					</section>
 					<section class="stats-tracking">

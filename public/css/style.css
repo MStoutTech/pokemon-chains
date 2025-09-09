@@ -7,6 +7,9 @@
   box-sizing: border-box;
 }
 
+.hidden{
+  display: none;
+}
 /******************************************
 /* LAYOUT
 /*******************************************/
@@ -24,8 +27,8 @@ header{
 header *{
   width: auto;
 }
-header > h1{
-  width: 80%;
+header > img{
+  margin-right: 40%;
 }
 
 main{
@@ -79,7 +82,7 @@ body {
 }
 
 h1 {
-  color: blue;
+  color: rgb(40, 40, 156);
 }
 
 header, .active-game, aside {
@@ -89,7 +92,7 @@ header, .active-game, aside {
 }
 
 .stats-tracking{
-  border: 2px solid blue;
+  border: 2px solid rgb(40, 40, 156);
   border-radius: 10px;
 }
 .stats-tracking span{
