@@ -92,6 +92,35 @@
 				</table>
 			</aside>
 		</main>
+
+		<!-- Modal Overlay -->
+    	<div id="modal-overlay" class="modal-overlay">
+        	<div class="modal">
+            	<h2>🏆 Congratulations!</h2>
+            	<p>You made the leaderboard!</p>
+            
+            	<input type="text" id="player-name" placeholder="Enter your name" maxlength="20">
+            
+            	<select id="player-country">
+                	<option value="">Select your country</option>
+                	<option value="🇺🇸">🇺🇸 United States</option>
+                	<option value="🇰🇷">🇰🇷 South Korea</option>
+                	<option value="🇯🇵">🇯🇵 Japan</option>
+                	<option value="🇬🇧">🇬🇧 United Kingdom</option>
+                	<option value="🇨🇦">🇨🇦 Canada</option>
+                	<option value="🇦🇺">🇦🇺 Australia</option>
+                	<option value="🇩🇪">🇩🇪 Germany</option>
+                	<option value="🇫🇷">🇫🇷 France</option>
+                	<option value="🇧🇷">🇧🇷 Brazil</option>
+                	<option value="🇲🇽">🇲🇽 Mexico</option>
+            	</select>
+            
+            	<div class="modal-buttons">
+                	<button class="modal-btn cancel" onclick="closeModal()">Cancel</button>
+                	<button class="modal-btn confirm" onclick="submitLeaderboard()">Add to Leaderboard</button>
+            	</div>
+        	</div>
+    	</div>
 		<script type="text/javascript" src="js/main.js"></script>
 	</body>
 </html>

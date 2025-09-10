@@ -97,7 +97,7 @@ function loseHeart(){
     document.querySelector('.active-game-input').classList.add('hidden')
     document.querySelector('.active-game-button').classList.add('hidden')
     document.querySelector('#new-game').classList.toggle('hidden')
-    checkAndUpdateLeaderboard();
+    checkQualifyLeaderboard();
   }
 }
 
@@ -168,34 +168,96 @@ function addToChain(){
 }
 }
 
-function checkAndUpdateLeaderboard() {
+function checkQualifyLeaderboard() {
   // Check if current score qualifies for top 20
   if (leaderboardData.length < 20 || chainCount > leaderboardData[leaderboardData.length - 1].score) {
-    
-    let playerName = prompt("Congratulations! You made the leaderboard! Enter your name:");
-    let country = prompt("Enter your country:");
-    
-    if (playerName && country) {
-      // Add new player
-      leaderboardData.push({
-        name: playerName,
-        score: chainCount,
-        country: country
-      });
-      
-      // Sort by score (highest first)
-      leaderboardData.sort((a, b) => b.score - a.score);
-      
-      // Keep only top 20
-      leaderboardData = leaderboardData.slice(0, 20);
-      
-      // Save to localStorage
-      localStorage.setItem("leaderboard", JSON.stringify(leaderboardData));
-      
-      // Update display
-      displayLeaderboard(leaderboardData);
-      
-      alert("Your score has been added to the leaderboard!");
-    }
+    showLeaderboardModal()
   }
+}
+
+
+//document.querySelector('.modal-btn.cancel').addEventListener('click', closeModal)
+//document.querySelector('.modal-btn.confirm').addEventListener('click', submitLeaderboard)
+
+// Submit the form
+function submitLeaderboard() {
+  clearErrors();
+  
+  const playerName = document.getElementById('player-name').value.trim();
+  const playerCountry = document.getElementById('player-country').value;
+  let hasErrors = false;
+  
+  if (!playerName) {
+    showError('name-error', 'Please enter your name!');
+    hasErrors = true;
+  }
+            
+  if (!playerCountry) {
+    showError('country-error', 'Please select your country!');
+    hasErrors = true;
+  }
+
+  if (hasErrors) {
+    return;
+  }
+            
+  updateLeaderboard(playerName, playerCountry);
+  console.log('Player data:', { playerName, playerCountry});
+            
+  // Close modal after successful submission
+  closeModal();
+  document.querySelector('.error-message').innerText += `
+  🎉 ${name} added to leaderboard!`;
+}
+
+// Close modal when clicking outside
+document.getElementById('modal-overlay').addEventListener('click', function(e) {
+  if (e.target === this) {
+    closeModal();
+  }
+});
+
+// Handle Enter key
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Enter' && document.getElementById('modal-overlay').classList.contains('show')) {
+    submitLeaderboard();
+  } else if (e.key === 'Escape') {
+    closeModal();
+  }
+});
+
+function updateLeaderboard(playerName, playerCountry){
+  leaderboardData.push({
+    name: playerName,
+    score: chainCount,
+    country: playerCountry
+  });
+      
+  // Sort by score (highest first)
+  leaderboardData.sort((a, b) => b.score - a.score);
+      
+  // Keep only top 20
+  leaderboardData = leaderboardData.slice(0, 20);
+      
+  // Save to localStorage
+  localStorage.setItem("leaderboard", JSON.stringify(leaderboardData));
+      
+  // Update display
+  displayLeaderboard(leaderboardData);
+}
+
+
+
+// Show the modal
+function showLeaderboardModal() {
+  document.getElementById('modal-overlay').classList.add('show');
+  document.getElementById('player-name').focus();
+}
+
+// Close the modal
+function closeModal() {
+  document.getElementById('modal-overlay').classList.remove('show');
+  // Clear inputs
+  document.getElementById('player-name').value = '';
+  document.getElementById('player-country').value = '';
 }
