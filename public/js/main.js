@@ -93,7 +93,7 @@ function loseHeart(){
     document.querySelector('#life-2').innerText = "♡ "
   } else {
     document.querySelector('#life-3').innerText = "♡ "
-    document.querySelector('.error-message').innerText += "- GAME OVER"
+    document.querySelector('.error-message').innerText = "GAME OVER\n" + document.querySelector('.error-message').innerText
     document.querySelector('.active-game-input').classList.add('hidden')
     document.querySelector('.active-game-button').classList.add('hidden')
     document.querySelector('#new-game').classList.toggle('hidden')
@@ -207,7 +207,7 @@ function submitLeaderboard() {
   // Close modal after successful submission
   closeModal();
   document.querySelector('.error-message').innerText += `
-  🎉 ${name} added to leaderboard!`;
+  🎉 ${playerName} added to leaderboard!`;
 }
 
 // Close modal when clicking outside
@@ -260,4 +260,20 @@ function closeModal() {
   // Clear inputs
   document.getElementById('player-name').value = '';
   document.getElementById('player-country').value = '';
+  clearErrors();
+}
+
+
+//Modal Errors
+function showError(elementId, message){
+  const errorElement = document.getElementById(elementId);
+  errorElement.textContent = message;
+  errorElement.classList.add('show');
+}
+
+function clearErrors() {
+  document.getElementById('name-error').classList.remove('show');
+  document.getElementById('country-error').classList.remove('show');
+  document.getElementById('name-error').textContent= '';
+  document.getElementById('country-error').textContent= '';
 }

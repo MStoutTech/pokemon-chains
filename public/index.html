@@ -100,6 +100,7 @@
             	<p>You made the leaderboard!</p>
             
             	<input type="text" id="player-name" placeholder="Enter your name" maxlength="20">
+				<div class="modal-error-message" id="name-error"></div>
             
             	<select id="player-country">
                 	<option value="">Select your country</option>
@@ -114,6 +115,7 @@
                 	<option value="🇧🇷">🇧🇷 Brazil</option>
                 	<option value="🇲🇽">🇲🇽 Mexico</option>
             	</select>
+				<div class="modal-error-message" id="country-error"></div>
             
             	<div class="modal-buttons">
                 	<button class="modal-btn cancel" onclick="closeModal()">Cancel</button>
