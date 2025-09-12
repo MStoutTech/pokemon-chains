@@ -132,7 +132,7 @@ function addToChain(){
       .then(res => res.json()) // parse response as JSON
       .then(data => {
         console.log(data)
-        if(data.Name === "nidoran-f" || data.Name === "nidoran-m"){
+        if(pokemonGuess ==="nidoran-f"){
           pokemonName = "nidoran"
         } else{
           pokemonName = data.name;
