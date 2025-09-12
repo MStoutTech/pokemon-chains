@@ -24,13 +24,17 @@ let url = 'https://pokeapi.co/api/v2/pokemon/'+ pokemonGuess +'/';
       .then(res => res.json()) // parse response as JSON
       .then(data => {
         console.log(data)
+        if(data.Name === "nidoran-f" || data.Name === "nidoran-m"){
+          pokemonName = "nidoran"
+        } else{
+          pokemonName = data.name;
+        }
+        
         document.querySelector('#chain-head-img').src = data.sprites.front_default;
         document.querySelector('#first-card-img').src = data.sprites.front_default;
-        document.querySelector('#chain-head-name').innerText = data.name;
-        pokemonName = data.name;
-        document.querySelector('#first-card-name').innerText = data.name;
-        pokemonName = data.name;
-        pokemonChain.push(data.name)
+        document.querySelector('#chain-head-name').innerText = pokemonName;
+        document.querySelector('#first-card-name').innerText = pokemonName;
+        pokemonChain.push(pokemonName)
       })
       .catch(err => {
           console.log(`error ${err}`)
@@ -119,16 +123,22 @@ function addToChain(){
     document.querySelector('.error-message').innerText = "This pokemon has already been chained!";
     loseHeart();
   } else {
-
+    if(pokemonGuess === "nidoran"){
+      pokemonGuess = "nidoran-f"
+    }
     url = 'https://pokeapi.co/api/v2/pokemon/'+ pokemonGuess +'/';
 
     fetch(url)
       .then(res => res.json()) // parse response as JSON
       .then(data => {
         console.log(data)
+        if(data.Name === "nidoran-f" || data.Name === "nidoran-m"){
+          pokemonName = "nidoran"
+        } else{
+          pokemonName = data.name;
+        }
         document.querySelector('#chain-head-img').src = data.sprites.front_default;
-        document.querySelector('#chain-head-name').innerText = data.name;
-        pokemonName = data.name;
+        document.querySelector('#chain-head-name').innerText = pokemonName;
         pokemonChain.push(pokemonName);
         
         //score keeping
