@@ -26,7 +26,9 @@ let url = 'https://pokeapi.co/api/v2/pokemon/'+ pokemonGuess +'/';
         console.log(data)
         if(data.Name === "nidoran-f" || data.Name === "nidoran-m"){
           pokemonName = "nidoran"
-        } else{
+        } else if (data.Name === "urshifu-single-strike"){
+          pokemonName = "urshifu"
+        }else{
           pokemonName = data.name;
         }
         
@@ -126,6 +128,9 @@ function addToChain(){
     if(pokemonGuess === "nidoran"){
       pokemonGuess = "nidoran-f"
     }
+    if(pokemonGuess === "urshifu"){
+      pokemonGuess = "urshifu-single-strike"
+    }
     url = 'https://pokeapi.co/api/v2/pokemon/'+ pokemonGuess +'/';
 
     fetch(url)
@@ -135,7 +140,9 @@ function addToChain(){
 
         if(pokemonGuess === "nidoran-f"){
           pokemonName = "nidoran"
-        } else{
+        } else if (pokemonGuess === "urshifu-single-strike"){
+          pokemonName = "urshifu"
+        }else{
           pokemonName = data.name;
         }
         document.querySelector('#chain-head-img').src = data.sprites.front_default;
